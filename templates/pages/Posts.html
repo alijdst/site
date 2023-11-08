@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+<div style="background-color:white;">
+    <h1 style="text-align:center">Posts</h1>
+    <a style="text-align:center" class = "btn btn-success" href="{% url 'post_new' %}">+New Blog Post</a>
+
+    <form class="form-inline my-2 my-lg-0" method="GET" action="{% url "post_search" %}" >
+        <input style="background-color:lightblue;" class="form-control mr-sm-2" type="search" name="search">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit"> Search </button>
+    </form>
+    <hr>
+
+
+    {% for post in posts_list %}
+    <p>
+        <a style = "font-size: large" href = "{% url "post_detail" post.pk %}" class="btn btn-dark">{{ post.title }}</a><br>
+        <small>created at: {{ post.created | naturaltime}} |</small>
+        <small>modified at: {{ post.updated | naturaltime}} |</small>
+        <small>author: {{ post.author }}</small>
+        <hr>
+    </p>
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{#{% load thumbnail %}#}
+
+{% block content %}
+
+    <h1>{{ post.title }}</h1>
+    <img src = '{{post.image.url}}' alt = ''><br>
+    <p>{{ post.text }}</p>
+    <a href="{% url 'post_edit' post.pk %}" class="btn btn-warning">Edit Post</a>
+    <a style="background : red" href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Delete Post</a>
+
+    
+
+{% endblock content %}

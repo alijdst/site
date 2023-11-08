@@ -1,0 +1,53 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .jumbotron{
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home_page' %}">HOME</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link " href="{%  url 'about_page'  %}">ABOUT</a>
+              <a class="nav-link" href="{%  url 'post_list'  %}">POSTS</a>
+              <a class="nav-link" href="{% url 'admin:index' %}">ADMIN</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    {% comment %} <header> {% endcomment %}
+        {% comment %} <div class="nav-left">
+            <h1><a href="{% url 'home_page' %}">HOME</a></h1>
+        </div> {% endcomment %}
+        {% comment %} <a href="{%  url 'post_list'  %}">POSTS</a> {% endcomment %}
+        {% comment %} <a href="{%  url 'about_page'  %}">ABOUT</a> {% endcomment %}
+        {% comment %} <a href="{% url 'admin:index' %}"> admin</a> {% endcomment %}
+    {% comment %} </header> {% endcomment %}
+
+{% comment %} {% if user.is_authenticated %}
+    <p>Hi {{ user.username }}!</p>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else  %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'signup' %}">Sign Up</a>
+{% endif %} {% endcomment %}
+
+    <div class = "jumbotron">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+
+</body>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1> This is Home Page!</h1>
+{% if user.is_authenticated %}
+    <div class="alert alert-info" role="alert">
+        Hi {{ user.username }}!
+    </div>  
+    {% comment %} <p>Hi {{ user.username }}!</p> {% endcomment %}
+    <p><a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a></p>
+{% else  %}
+    <div class="alert alert-danger" role="alert">
+        You are not logged in!
+    </div>
+    {% comment %} <p>You are not logged in</p> {% endcomment %}
+    <a href="{% url 'login' %}" class="btn btn-success">Log In</a>
+    <a href="{% url 'signup' %}" class="btn btn-info">Sign Up</a>
+{% endif %}
+{% endblock content %}
