@@ -1,28 +1,27 @@
-from typing import Iterable, Optional
-
 from PIL.Image import Image
 from PIL import Image
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
-from django.utils.text import slugify
 
 
 class CustomManager(models.Manager):
+
      def published(self):
-         return self.filter(is_publish = True)
+
+         return self.filter(is_publish=True)
 
 
 class Posts(models.Model):
-    title = models.CharField(max_length= 100)
+
+    title = models.CharField(max_length=100)
     text = models.TextField()
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE, default='')
-    created = models.DateTimeField(auto_now_add= True)
-    updated = models.DateTimeField(auto_now= True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='', default='default.jpg', help_text="Post Picture")
-    is_publish = models.BooleanField(default= False)
-    slug = models.SlugField(default= '')
+    is_publish = models.BooleanField(default=False)
+    slug = models.SlugField(default='')
 
     objects = CustomManager()
 
@@ -45,7 +44,7 @@ class Posts(models.Model):
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
-        ordering = ['-updated','-created']
+        ordering = ['-updated', '-created']
         
     def get_absolute_url(self):
         

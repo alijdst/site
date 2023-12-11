@@ -133,10 +133,8 @@ MEDIA_URL = ''
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 LOGIN_REDIRECT_URL = "post_list"
 
 LOGOUT_REDIRECT_URL = "home_page"
-
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
