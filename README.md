@@ -1,3 +1,19 @@
-# site
-A simple web site that users can sign up, sign in, log out and also create posts with title, description and picture; Each post will be published with it's author name.
-Some other feutures like permissions, search and etc are used.
+# Blog
+Web site that users can create post and see other user's posts.
+
+# Features
+* Account
+  * Signup
+  * Login
+  * LogOut
+
+* Posts
+  * Create Post
+  * Edit Post
+  * Each post will be shown with it's author name and the time of post created/updated.
+
+* Permissions
+  
+  Only members have access to create post and each user can update his/her posts.
+  Only superuser can delete posts.
+
