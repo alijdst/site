@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from django.views.generic import (TemplateView,
                                   ListView,
                                   DetailView,
@@ -9,7 +8,7 @@ from django.views.generic import (TemplateView,
                                   )
 
 from django.urls import reverse_lazy
-from .models import Posts, CustomManager
+from .models import Posts
 from .forms import PostForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -29,7 +28,7 @@ class UpdatePost(PermissionRequiredMixin, UpdateView):
     template_name = 'pages/edit_post.html'
     model = Posts
     form_class = PostForm
-    
+
 
 class CreateNewPost(LoginRequiredMixin, CreateView):
     template_name = 'pages/post_new.html'
@@ -40,32 +39,49 @@ class CreateNewPost(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
-    
-@login_required
-def create_new_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit = False)
-            post.author = request.user
-            post.save()
-            return redirect('post_list')
-    else:
-        form = PostForm()
-        return render(request, 'pages/post_new.html', context = {'form': form})
+
+
+'''Optionally can use create_new_post function instead of CreateNewPost class.
+For change view you can go to urls.py in this directory and put the function name instead of class name.
+Also notice if you use function you should not use .as_view()'''
+# @login_required # use this decorator for apply login permission
+# def create_new_post(request):
+#     if request.method == 'POST':
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.author = request.user
+#             post.save()
+#             return redirect('post_list')
+#     else:
+#         form = PostForm()
+#         return render(request, 'pages/post_new.html', context={'form': form})
 
 
 class PostsDetailView(LoginRequiredMixin, DetailView):
     template_name = 'pages/post_detail.html'
     model = Posts
     context_object_name = 'post'
+
     def post_detail(request, pk):
-        post = get_object_or_404(Posts, pk = pk)
+        post = get_object_or_404(Posts, pk=pk)
         context = {
-            'post':post
+            'post': post
         }
-        return render(request, 'pages/Posts.html',context)
+        return render(request, 'pages/post_detail.html', context)
+
+
+'''Optionally can use post_detail function instead of PostDetailView class.
+For change view you can go to urls.py in this directory and put the function name instead of class name.
+Also notice if you use function you should not use .as_view()'''
+# @login_required # use this decorator for apply login permission
+# def post_detail(request, pk):
+#
+#     post = get_object_or_404(Posts, pk=pk)
+#     context = {
+#         'post': post
+#     }
+#     return render(request, 'pages/post_detail.html', context)
 
 
 class PostsListsView(LoginRequiredMixin, ListView):
@@ -73,18 +89,8 @@ class PostsListsView(LoginRequiredMixin, ListView):
     model = Posts
 
     def get_queryset(self):
-        
-        posts = Posts.objects.filter(is_publish = True)
+        posts = Posts.objects.filter(is_publish=True)
         return posts
-
-@login_required
-def post_detail(request, pk):
-    
-    post = get_object_or_404(Posts, pk=pk)
-    context = {
-        'post': post
-    }
-    return render(request, 'pages/post_detail.html', context)
 
 
 class HomePage(TemplateView):
@@ -101,13 +107,12 @@ class SearchView(ListView):
     context_object_name = 'all_search_results'
 
     def get_queryset(self):
-        
-       result = super(SearchView, self).get_queryset()
-       query = self.request.GET.get('search')
-       if query:
-          postresult = Posts.objects.filter(Q(title__contains=query) | Q(text__icontains=query))
-          result = postresult
-       else:
-           result = None
-       return result
 
+        result = super(SearchView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = Posts.objects.filter(Q(title__contains=query) | Q(text__icontains=query))
+            result = postresult
+        else:
+            result = None
+        return result
