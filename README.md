@@ -3,6 +3,8 @@
 
 # Blog
 Web site that users can create post and see other user's posts.
+![GitHub](https://img.shields.io/github/license/alijdst/blog)
+![GitHub](https://img.shields.io/pypi/pyversions/blog.svg)
 
 # Features
 * Account
