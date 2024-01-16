@@ -138,3 +138,4 @@ LOGIN_REDIRECT_URL = "post_list"
 LOGOUT_REDIRECT_URL = "home_page"
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+SESSION_COOKIE_SECURE = True
