@@ -109,8 +109,7 @@ class SearchView(ListView):
     def get_queryset(self):
 
         result = super(SearchView, self).get_queryset()
-        query = self.request.GET.get('search')
-        if query:
+        if query := self.request.GET.get('search'):
             postresult = Posts.objects.filter(Q(title__contains=query) | Q(text__icontains=query))
             result = postresult
         else:
